@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap Homework</title>
+    <!--<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />-->
+    <!--<meta http-equiv="refresh" content="1">-->
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- Main div with container class -->
+    <div class="container">
+        <!-- First row with title image -->
+        <div class="row header">
+            <div class="col">
+                <img src="images/fig01.png" alt="Coding Langueges Images" />
+            </div>
+        </div>
+        <!-- Second row with aside and details sections -->
+        <div class="row section">
+            <!-- Aside section, only visible in xl screen size -->
+            <div class="d-none d-xl-block col-xl-4  aside">
+                <div class="row">
+                    <!-- Four divs that replace the table from the previous assignment -->
+                    <div class="col-12 border-bottom top"><h3>שפה</h3></div>
+                    <div id="myDiv" class="col-12 border-bottom">HTML(Hyper Text Markup Language)</div>
+                    <div class="col-12 border-bottom">CSS (cascading style sheets)</div>
+                    <div class="col-12 border-bottom">JS (Java Script)</div>
+                </div>
+            </div>
+            <!-- Details section -->
+            <div class="col-xl-8 details">
+                <div class="row">
+                    <!-- Eight divs that replace the table from the previous assignment -->
+                    <!-- First two divs, only visible from md screen size and up -->
+                    <div class="col-md-6 col-lg-8 d-none d-md-block border-bottom top"><h3>תקציר</h3></div>
+                    <div class="col-md-6 col-lg-4 d-none d-md-block border-bottom top"><h3>לינקים שימושיים</h3></div>
+                    <!-- Remaining six divs, visible in all screen sizes -->
+                    <div id="myDiv2" class="col-12 col-md-8 border-bottom">
+                        HTML שפה המשמשת לתצוגה של תוכן
+                        באתרי אינטרנט. למרות ש-HTML לא
+                        נחשבת לשפת תכנות אלא לשפת סימון
+                        (language Markup), היא עדיין מאוד
+                        חשובה מכיוון שהיא משמשת כ“שלד“ של
+                        רוב עמודי האינטרנט בעולם. על מנת
+                        להוסיף טקסט, תמונות או כל מדיה אחרת
+                        לדף אינטרנט מסוים, משתמשים ב-
+                        HTML. בעצם, כל מה שהמשתמש רואה
+                        באתר מקבל את המאפיינים הבסיסיים
+                        שלו מקוד ה- HTML.
+                    </div>
+                    <div class="col-12 col-md-4 border-bottom">
+                        <ul>
+                            <li>
+                                <a href="https://www.w3schools.com/html/">
+                                    W3schools html
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://stackoverflow.com/questions/tagged/html">
+                                    StackOverFlow - [HTML] Question
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-8 border-bottom">
+                        CSS שפה שבה משתמשים כדי לעצב
+                        אתרי אינטרנט. בעוד ש- HTML יוצרת את
+                        המבנה ואת התוכן של האתר כמו
+                        פסקאות, כותרות ותמונות, CSS לוקחת
+                        את האלמנטים האלה וגורמת להם
+                        להיראות טוב.
+                    </div>
+                    <div class="col-12 col-md-4 border-bottom">
+                        <ul>
+                            <li>
+                                <a href="https://www.w3schools.com/css/default.asp">
+                                    W3schools css
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://stackoverflow.com/questions/tagged/css">
+                                    StackOverFlow - [CSS] Question
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-8 border-bottom">
+                        JS שפת תכנות זו נועדה לפיתוח אלמנטים
+                        דינמיים של אתרי אינטרנט בצד הלקוח
+                        (פרונטאנד), אך לאחרונה JavaScript
+                        הופכת שימושית יותר ויותר גם לפיתוח
+                        Backend( צד השרת) באמצעות
+                        טכנולוגיות Node.js.
+                    </div>
+                    <div class="col-12 col-md-4 border-bottom">
+                        <ul>
+                            <li>
+                                <a href="https://www.w3schools.com/js/default.asp">
+                                    W3schools JS
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://stackoverflow.com/questions/tagged/javascript">
+                                    StackOverFlow - [JS] Question
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Third row with header and images -->
+        <div class="row footer">
+            <!-- Header div, full width in all screen sizes -->
+            <div class="col-12">
+                <h1>עוד שפות פופולריות</h1>
+            </div>
+            <!-- Image divs, one third of the width in xs screen size and sixth of the width in other screen sizes -->
+            <div class="col-4 col-sm-2">
+                <img src="images/3d-c-programming-language-logo-free-png.png" alt="C Image" />
+            </div>
+            <div class="col-4 col-sm-2">
+                <img src="images/csharp.png"alt="Csharp Image" />
+            </div>
+            <div class="col-4 col-sm-2">
+                <img src="images/Java_programming_language_logo.svg.png" alt="Java Image"/>
+            </div>
+            <div class="col-4 col-sm-2">
+                <img src="images/Python-logo-notext.svg.png" alt="Python Image"/>
+            </div>
+            <div class="col-4 col-sm-2">
+                <img src="images/react.png" alt="React Image"/>
+            </div>
+            <div class="col-4 col-sm-2">
+                <img src="images/sql-5.png" alt="SQL Image"/>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var div = document.getElementById("myDiv2");
+
+        // Define a callback function to handle the size change
+        function handleResize(entries) {
+            // Loop through the entries
+            for (let entry of entries) {
+            // Get the new height of the div
+                let height = entry.contentRect.height;
+                // set the hight of the first div
+                document.getElementById('myDiv').style.minHeight = height + "px";
+            }
+        }
+
+        // Create a new ResizeObserver instance with the callback function
+        var resizeObserver = new ResizeObserver(handleResize);
+
+        // Start observing the div
+        resizeObserver.observe(div);
+    </script>
+</body>
+</html>

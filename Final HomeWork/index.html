@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <title>מידע על טיסה</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="Data/flights.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="clouds"></div>
+    <!-- Search Inputs -->
+    <div class="sticky-nav">
+        <label>מסנן:</label>
+        <input type="text" id="searchNumber" placeholder="מספר טיסה (כולל)">
+        <label>מ:</label>
+        <input type="date" id="searchDateStart" placeholder="תאריך התחלה">
+        <label>עד ל:</label>
+        <input type="date" id="searchDateEnd" placeholder="תאריך סיום">
+        <!-- With the following select element -->
+        <select id="searchType">
+            <option value="">בחר סוג טיסה</option>
+            <option value="A">מגיע</option>
+            <option value="D">יוצאים</option>
+        </select>
+        <input type="text" id="searchCountry" placeholder="מדינה (כולל)">
+        <input type="text" id="searchCity" placeholder="עיר (כולל)">
+        <button id="filterFlightsBtn">חיפוש</button>
+        <div class="vertical-divider"></div>
+        <button id="btnAggregatedData">נתונים מצטברים</button>
+        <div class="vertical-divider"></div>
+        <button id="btnLateAirline">חברת התעופה המאוחרת ביותר</button>
+        <button id="findLateAirlineBtn">מצא את חברת התעופה המאוחרת ביותר</button>
+        <div class="vertical-divider"></div>
+        <span id="clockDisplay"></span>
+    </div>
+
+
+
+
+    <div id="lateAirlineInfo" class="hidden">
+        <h2>חברת התעופה המאוחרת ביותר</h2>
+        <p id="lateAirlineText"></p>
+    </div>
+
+
+
+
+    <!-- The DIV for displaying flight data -->
+    <!-- Modal Background -->
+    <div id="modalBackground" class="modal-background hidden"></div>
+
+    <!-- Modal Box -->
+    <div id="flightDetails" class="modal hidden">
+    </div>
+    <!-- Flight Table -->
+    <table id="flightsTable">
+        <thead>
+            <tr>
+                <th>אופרטור קצר</th>
+                <th>מספר</th>
+                <th>זמן מתוכנן</th>
+                <th>זמן אמיתי</th>
+                <th>סוּג</th>
+                <th>עִיר</th>
+                <th>נמל תעופה</th>
+                <th>סטָטוּס</th>
+                <th>מדינה</th>
+            </tr>
+        </thead>
+        <tbody id="flightsBody">
+            <!-- Rows will be added here by JavaScript -->
+        </tbody>
+    </table>
+
+
+    <div id="aggregatedData">
+        <h2>נתוני טיסה מצטברים</h2>
+        <div id="chartsContainer">
+            <div id="flightCountsPerAirline"></div>
+            <div id="averageDelayTimePerAirline"></div>
+            <div id="flightCountsByType"></div>
+            <div id="maxDelayPerAirline"></div>
+            <div id="countriesServedPerAirline"></div>
+        </div>
+    </div>
+
+    <button id="scrollTopBtn" class="scroll-top-btn">גלול למעלה</button>
+
+
+    <template id="flightDetailTemplate">
+        <div class="flight-detail">
+            <div><strong>מספר טיסה:</strong> <span class="flight-number"></span></div>
+            <div><strong>סטָטוּס:</strong> <span class="flight-status"></span></div>
+            <div><strong>זמן מתוכנן:</strong> <span class="flight-sheduled"></span></div>
+            <div><strong>זמן אמיתי:</strong> <span class="flight-actual"></span></div>
+            <div><strong>מ:</strong> <span class="flight-from"></span></div>
+            <div><strong>חֶברַת תְעוּפָה:</strong> <span class="flight-airline"></span></div>
+            <div><strong>מדינה:</strong> <span class="flight-country"></span></div>
+            <div><strong>קוד עיר:</strong> <span class="flight-city-code"></span></div>
+            <div><strong>מָסוֹף:</strong> <span class="flight-terminal"></span></div>
+            <div><strong>דֶלְפֵּק:</strong> <span class="flight-counter"></span></div>
+            <div><strong>אֵזוֹר:</strong> <span class="flight-zone"></span></div>
+            <button id="closeButton" class="close-button">סגור</button>
+        </div>
+    </template>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

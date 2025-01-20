@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <!--<meta http-equiv="refresh" content="1">-->
+    <style>
+        .mainList {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            list-style-position: inside;
+            font-size:20px;
+        }
+
+            .mainList li {
+                width: 33%;
+                padding:100px 0 100px 0;
+                background-color: rgba(255, 255, 255, 0.7);
+                background-blend-mode: lighten;
+                font-size:30px;
+            }
+
+                .mainList li li {
+                    width: auto;
+                    padding: initial;
+                    background-color: rgba(255, 255, 255, 0);
+                    font-size:20px;
+                }
+    </style>
+</head>
+<body dir="rtl" style="margin: 0 0 0 0; background-color: antiquewhite; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div id="Top">
+        <h5 style="text-align:center">עבודה של מוחמד נור אבו עסבה | ת"ז 315226472</h5>
+    </div>
+    <div id="Brand Display" dir="ltr" style="max-height: 80px; display: flex; background-color: burlywood; border: 2px solid black; outline-style: outset; outline-color: green;">
+        <div id="image-container">
+            <img src="Img/Logo.png" alt="Logo" style="height:80px; width: auto;" />
+        </div>
+        <div id="BrandName">
+            <h1 style="font-family:Forte">Fresh Harvest Market | הירקנייה הטובה בשוק</h1>
+        </div>
+    </div>
+    <div id="Categories" style="margin:10px 10px 10px 10px">
+        <h2>קטגוריות</h2>
+        <ul class="mainList">
+            <li style="background-image: url(Img/Fruits.jpeg);">
+                <a href="FruitsPage.html">
+                    פירות
+                </a>
+                <ul>
+                    <li>תפוח</li>
+                    <li>ענבים</li>
+                    <li>אגס</li>
+                </ul>
+            </li>
+            <li style="background-image: url(Img/Vegetables.png);">
+                <a href="VegetablesPage.html">
+                    ירקות
+                </a>
+                <ul>
+                    <li>מלפפון</li>
+                    <li>עגבניה</li>
+                    <li>פלפל</li>
+                </ul>
+
+            </li>
+            <li style="background-image: url(Img/Leaves.jpg); ">
+                <a href="LeavesPage.html">
+                    עלים
+                </a>
+                <ul>
+                    <li>חסה</li>
+                    <li>כוסברה</li>
+                    <li>נענע</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="Bottom">
+        <h5 style="text-align:center">עבודה של מוחמד נור אבו עסבה | ת"ז 315226472</h5>
+    </div>
+</body>
+</html>

@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lotto Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-info">
+            <div id="rules">
+                <p>In each lottery the user has to guess 6 different numbers from the numbers 1-37 plus an additional
+                    number representing a number strong (a number between 1-7).</p>
+                <ol>
+                    <li>Correctly guessing all six numbers and also correctly guessing the strong number entitles the
+                        participant to a prize of 1000 Coins.</li>
+                    <li>Correctly guessing all six numbers without correctly guessing the strong number entitles the
+                        participant to a prize of 600 Coins.</li>
+                    <li>A correct guess of four numbers and also a correct guess of the strong number entitles the
+                        participant to a prize of 400 Coins.</li>
+                    <li>Any other guess does not entitle the participant to a prize at all.</li>
+                </ol>
+                <p>The cost of each lottery is 300 Coins</p>
+            </div>
+            <h3 id="money">You have 1000 Coins</h3>
+        </div>
+        <form id="lottoForm">
+            <div>
+                <h2>Select The Strong Number</h2>
+                <table id="strongNumTable">
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            3
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            5
+                        </td>
+                        <td>
+                            6
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            7
+                        </td>
+                        <td>
+                            8
+                        </td>
+                        <td>
+                            9
+                        </td>
+                    </tr>
+                </table>
+                <div id="results"></div>
+                <div id="message"></div>
+            </div>
+            <div id="SixNumbersDiv">
+                <h2>Select The Six Numbers</h2>
+            </div>
+        </form>
+    </div>
+
+    <!----------------------------------------------------------------------JS CODE--------------------------------------------------------------------------->
+
+    <script>
+        let money = 1000;
+        let cost = 300;
+        let winningNumbers = [];
+        let strongNumber = 0;;
+        let lottoForm = document.getElementById('lottoForm');
+        let message = document.getElementById('message');
+        let results = document.getElementById('results');
+        let moneyText = document.getElementById('money');
+        let selectedNumbers = [];
+
+
+        // This function generates a random number between the given minimum and maximum values (inclusive) using the Math.random() method and the floor function.
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // This function generates a new set of winning numbers for a lotto game. It assigns a random strong number between 1 and 7 to the variable strongNumber.
+        // Then, it generates 6 unique random numbers between 1 and 37 (inclusive) and adds them to the winningNumbers array.
+        // The do-while loop ensures that the generated numbers are unique and not already present in the winningNumbers array.
+        function GenerateNewWinningNumbers() {
+            strongNumber = getRandomNumber(1, 7);
+            winningNumbers = [];
+            for (let i = 0; i < 6; i++) {
+                let randomNumber;
+                do {
+                    randomNumber = getRandomNumber(1, 37);
+                } while (winningNumbers.includes(randomNumber));
+                winningNumbers.push(randomNumber);
+            }
+        }
+        GenerateNewWinningNumbers();
+
+        /*
+        This code snippet dynamically generates a table with numbers and buttons using JavaScript. 
+        The table has 40 cells, with each row containing 8 cells. The numbers 1 to 37 are displayed in the cells, and each cell has a click event listener attached to it.
+        When a cell is clicked, the number is added to the 'selectedNumbers' array if it is not already present, and the 'selected' class is added to the cell.
+        If the number is already in the array, it is removed and the 'selected' class is removed from the cell.
+        Additionally, a special cell is created at index 38, which spans 3 columns. This cell contains two buttons: a submit button and an end game button.
+        The submit button has a click event listener attached to it, which performs some validation and updates the 'money' variable and the display accordingly.
+        The generated table is appended to the 'SixNumbersDiv' element in the HTML document.
+        Note: This code snippet is part of a larger context and may require additional code to function properly.
+        */
+        let table = document.createElement('table');
+        let row = document.createElement('tr');
+        for (let i = 1; i <= 40; i++) {
+            if (i % 8 === 1 && i !== 1) {
+                table.appendChild(row);
+                row = document.createElement('tr');
+            }
+            let cell = document.createElement('td');
+            if (i === 38) {
+                let buttonCell = document.createElement('td');
+                buttonCell.colSpan = 3; // Make the cell span 3 columns
+
+                let submitButton = document.createElement('button');
+                submitButton.type = 'submit';
+                submitButton.innerHTML = '<i class="fas fa-check"></i> Submit';
+                submitButton.className = 'button';
+
+                let endGameButton = document.createElement('button');
+                endGameButton.type = 'button';
+                endGameButton.id = 'endGame';
+                endGameButton.textContent = 'End Game';
+                endGameButton.className = 'button-red';
+
+                buttonCell.appendChild(submitButton);
+                buttonCell.appendChild(endGameButton);
+
+                row.appendChild(buttonCell);
+                i += 2; // Skip the next two iterations as we've already filled them with buttons
+            } else if (i <= 37) {
+                cell.textContent = i;
+                cell.addEventListener('click', function () {
+                    let index = selectedNumbers.indexOf(i);
+                    if (index !== -1) {
+                        selectedNumbers.splice(index, 1);
+                        cell.classList.remove('selected');
+                    } else if (selectedNumbers.length < 6) {
+                        selectedNumbers.push(i);
+                        cell.classList.add('selected');
+                    }
+                });
+                row.appendChild(cell);
+            }
+        }
+        table.appendChild(row);
+        document.getElementById('SixNumbersDiv').appendChild(table);
+
+
+
+        /*
+        This code snippet handles the selection of a strong number from a table. It adds event listeners to each cell in the table and allows the user to select a number by clicking on a cell.
+        When a cell is clicked, it checks if a number is already selected. If a number is selected, it deselects it by removing the 'selected' class.
+        If the clicked cell is not the currently selected one, it selects it by adding the 'selected' class and saves the selected number. 
+        If the clicked cell is the currently selected one, it deselects it by setting the selected number and value to null. 
+        The selected number and value are stored in the variables 'selectedStrongNum' and 'selectedStrongNumValue' respectively.
+        */
+        let strongNumTable = document.getElementById('strongNumTable');
+        let strongNumCells = strongNumTable.getElementsByTagName('td');
+        let selectedStrongNum = null;
+        let selectedStrongNumValue = null; // This will hold the selected number
+
+        for (let cell of strongNumCells) {
+            cell.addEventListener('click', function () {
+                if (selectedStrongNum) {
+                    // If a number is already selected, deselect it
+                    selectedStrongNum.classList.remove('selected');
+                }
+                if (selectedStrongNum !== cell) {
+                    // If the clicked cell is not the currently selected one, select it
+                    cell.classList.add('selected');
+                    selectedStrongNum = cell;
+                    selectedStrongNumValue = parseInt(cell.textContent); // Save the selected number
+                } else {
+                    // If the clicked cell is the currently selected one, deselect it
+                    selectedStrongNum = null;
+                    selectedStrongNumValue = null; // Clear the saved number
+                }
+            });
+        }
+
+        /*
+        This code snippet is an event listener for the form submission in the lotto game. It performs the following actions:
+        - Prevents the default form submission behavior.
+        - Checks if the user has selected 6 numbers and a strong number before submitting the form. If not, it displays an error message and returns.
+        - Clears the message element and adds a fade-in animation class to it.
+        - Subtracts the cost of playing the game from the user's money.
+        - Calculates the number of correct guesses the user made by filtering the selected numbers against the winning numbers.
+        - Determines the prize amount based on the number of correct guesses and the selected strong number.
+        - If the user has 6 correct guesses and the selected strong number matches the winning strong number, the prize is set to 1000.
+        - If the user has 6 correct guesses but the selected strong number does not match the winning strong number, the prize is set to 600.
+        - If the user has 4 correct guesses and the selected strong number matches the winning strong number, the prize is set to 400.
+        - If none of the above conditions are met, it displays a message indicating that the user did not win and calls the resetForm() and MoneyCheck() functions.
+        - Adds the prize amount to the user's money and updates the money display.
+        - Displays the user's score and remaining money in the results element, along with a result message generated by the createResultMessage() function.
+        - Adds a fade-in animation class to the results element.
+        - Calls the MoneyCheck() function and resets the form.
+        */
+        lottoForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            let correctGuesses = selectedNumbers.filter(num => winningNumbers.includes(num)).length;
+            if (selectedNumbers.length !== 6 || selectedStrongNumValue === null) {
+                message.innerText = 'Please complete the form before submitting.';
+                message.classList.add('fade-in');
+                setTimeout(() => {
+                    message.classList.remove('fade-in');
+                }, 500);
+                MoneyCheck();
+                return;
+            }
+            message.innerText = '';
+            message.classList.add('fade-in');
+            setTimeout(() => {
+                message.classList.remove('fade-in');
+            }, 500);
+            money -= cost;
+            updateMoneyDisplay();
+            let prize = 0;
+            if (correctGuesses === 6 && selectedStrongNumValue == strongNumber) {
+                prize = 1000;
+            } else if (correctGuesses === 6) {
+                prize = 600;
+            } else if (correctGuesses === 4 && selectedStrongNumValue == strongNumber) {
+                prize = 400;
+            } else {
+                results.innerText = 'Sorry, you did not win this time.';
+                results.innerText += createResultMessage(selectedNumbers, selectedStrongNumValue);
+                results.classList.add('fade-in');
+                setTimeout(() => {
+                    results.classList.remove('fade-in');
+                }, 500);
+                resetForm();
+                MoneyCheck();
+                return;
+            }
+
+            money += prize;
+            updateMoneyDisplay();
+            results.innerText = `Your score in this draw is: ${prize}. You have ${money} left.`;
+            results.innerText += createResultMessage(selectedNumbers, selectedStrongNumValue);
+            results.classList.add('fade-in');
+            setTimeout(() => {
+                results.classList.remove('fade-in');
+            }, 500);
+            MoneyCheck();
+            resetForm();
+        });
+
+
+        /*
+        This code snippet defines checks if the variable 'money' is less than the variable 'cost'. If it is,
+        it calls the function 'endGame()' with a message indicating that the game is over and the final amount of coins.
+        This function is used to check if the player has enough money to continue playing the game.
+        */
+        function MoneyCheck() {
+            if (money < cost) {
+                endGame('Game over, you do not have enough money to continue., Your final coins are: ' + money);
+            }
+        }
+
+
+        /*
+        This code snippet adds an event listener to the element with the id 'endGame'. When the element is clicked,
+        it calls the 'endGame' function with a message as an argument.
+        The message includes the final coins value. This code is used to handle the end of the game and display the final result to the user.
+        */
+        document.getElementById('endGame').addEventListener('click', function () {
+            endGame('Game has ended. Your final coins are: ' + money);
+        });
+
+
+        /*
+        The function is responsible for resetting the form by performing the following actions:
+        - Clearing the selected numbers by emptying the selectedNumbers array.
+        - Resetting the background color of the cells in the main table by calling the resetCells() function and passing the table's td elements as an argument.
+        - Clearing the selected strong number by setting the selectedStrongNum and selectedStrongNumValue variables to null.
+        - Resetting the background color of the cells in the strong number table by calling the resetCells() function and passing the strongNumCells array as an argument.
+        - Generating new winning numbers by calling the GenerateNewWinningNumbers() function.
+        This function is used to reset the form and prepare it for a new round of the lotto game.
+        */
+        function resetForm() {
+            // Clear selected numbers
+            selectedNumbers = [];
+
+            // Reset the background color of the cells in the main table
+            resetCells(table.getElementsByTagName('td'));
+
+            // Clear selected strong number
+            selectedStrongNum = null;
+            selectedStrongNumValue = null;
+
+            // Reset the background color of the cells in the strong number table
+            resetCells(strongNumCells);
+
+            GenerateNewWinningNumbers();
+        }
+
+
+        /*
+        The function takes two parameters: selectedNumbers and strongGuess. 
+        It returns a message string that includes the drawn numbers, the strong number, the user's selected numbers, and the user's strong number. 
+        The drawn numbers and the user's selected numbers are joined together with commas. 
+        The message string is formatted with newline characters to separate the different parts of the message. 
+        */
+        function createResultMessage(selectedNumbers, strongGuess) {
+            let message = '';
+            message += `\nDrawn numbers: ${winningNumbers.join(', ')}, Strong number: ${strongNumber}`;
+            message += `\nYour numbers: ${selectedNumbers.join(', ')}, Your strong number: ${strongGuess}`;
+            return message;
+        }
+
+
+        /*
+        The function updates the text content of the moneyText element with the current value of the money variable, displaying it as "You have [money] Coins".
+        It also adds the 'animate' class to the moneyText element, which triggers a CSS animation to highlight the text.
+        After 1 second, the 'animate' class is removed from the moneyText element.
+        This function is used to update the display of the available coins in the Lotto Game.
+        */
+        function updateMoneyDisplay() {
+            moneyText.innerText = "You have " + money + " Coins";
+            moneyText.classList.add('animate');
+            setTimeout(() => moneyText.classList.remove('animate'), 1000); // Remove the class after 1 second
+        }
+
+
+        /*
+        This code snippet defines a function called `endGame` that is used to end the game and display a final message to the user. 
+
+        Parameters:
+        - `finalMessage` (string): The message to be displayed to the user indicating the end of the game.
+
+        The function performs the following steps:
+        1. Retrieves the container div element using the `querySelector` method.
+        2. Moves the `results` and `message` div elements out of the `lottoForm` and inserts them before the `lottoForm` in the container.
+        3. Hides the `lottoForm`, `moneyText`, and `endGame` button by setting their `display` property to `'none'`.
+        4. Sets the `innerText` of the `message` div to the `finalMessage`.
+        5. Adds the `fade-in` class to the `message` div to apply a fade-in animation effect.
+        6. Removes the `fade-in` class from the `message` div after a delay of 500 milliseconds.
+
+        Note: The `fade-in` class is defined in the CSS code and is used to apply a fade-in animation effect to elements.
+        */
+        function endGame(finalMessage) {
+            // Get the container div
+            let container = document.querySelector('.container');
+
+            // Move the results and message divs out of the lottoForm
+            container.insertBefore(results, lottoForm);
+            container.insertBefore(message, lottoForm);
+
+            // Now hide the lottoForm, moneyText, and endGame button
+            lottoForm.style.display = 'none';
+            moneyText.style.display = 'none'
+            document.getElementById('endGame').style.display = 'none';
+
+            message.innerText = finalMessage;
+            message.classList.add('fade-in');
+            setTimeout(() => {
+                message.classList.remove('fade-in');
+            }, 500);
+        }
+
+        /*
+        This code snippet defines a function called resetCells.
+        It takes in a list of cells and removes the 'selected' class from each cell.
+        This function is used to reset the selected state of cells in an HTML table.
+        */
+        function resetCells(cells) {
+            for (let cell of cells) {
+                cell.classList.remove('selected');
+            }
+        }
+
+    </script>
+</body>
+
+</html>
